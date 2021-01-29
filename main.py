@@ -34,7 +34,7 @@ st.sidebar.title("Features")
 quant_parameter_list = ['national_inv',
                 'lead_time',
                 'in_transit_qty',
-                'sales_6_month',
+                'sales_1_month',
                 'pieces_past_due',
                 'perf_6_month_avg',
                 'local_bo_qty']
@@ -66,12 +66,8 @@ input_variables=pd.DataFrame([parameter_input_values],columns=parameter_list)
 st.write('\n\n')
 
 model = load('AdaBoost.joblib') if model_select == "AdaBoost" else load('RandomForest.joblib')
-yes = Image.open('yes.jpg').resize((200, 300))
-no = Image.open('no.jpg').resize((200, 300))
 
 if st.button("Will the product be a backorder?"):
     prediction = model.predict(input_variables)
-    #pred = 'No' if prediction == 0 else 'Yes'
-    #st.text(pred)
-    img = no if prediction == 0 else yes
-    st.image(img)
+    pred = 'No' if prediction == 0 else 'Yes'
+    st.text(pred)
